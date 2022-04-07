@@ -10,7 +10,7 @@ export interface IUser {
 }
 
 export interface ILocation {
-    id: number,
+    id: string,
     title: string,
     coordinates: string,
     images: string[],
@@ -19,7 +19,7 @@ export interface ILocation {
 }
 
 export interface IComment {
-    id: number,
+    id: string,
     location: ILocation,
     author: IUser,
     text: string,
@@ -27,7 +27,7 @@ export interface IComment {
 }
 
 export interface Suggestion {
-    id: number,
+    id: string,
     author: IUser,
     image: File,
     location: ILocation,
