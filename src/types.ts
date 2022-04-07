@@ -1,8 +1,10 @@
+import firebase from "firebase/compat";
+import FieldValue = firebase.firestore.FieldValue;
+
 export interface IUser {
-    id: number,
+    id: string,
     name: string,
     email: string,
-    password: string,
     selectedLocations: ILocation[],
     role: 'USER' | 'ADMIN',
 }
@@ -13,7 +15,7 @@ export interface ILocation {
     coordinates: string,
     images: string[],
     description: string,
-    date: Date,
+    date: FieldValue,
 }
 
 export interface IComment {
