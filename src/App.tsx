@@ -7,7 +7,8 @@ import PostsPage from "./pages/PostsPage/PostsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import RequestFormPage from "./pages/RequestFormPage/RequestFormPage";
-import Layout from "./components/Header";
+import {Layout} from "./components/Latout";
+
 
 function App() {
     return (
