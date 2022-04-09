@@ -49,6 +49,28 @@ const locationCollection = collection(db, 'locations');
 //     await addDoc(locationCollection, newLocation)
 // }
 
+export const getUserById = async (uid: string | undefined) => {
+    if (uid === undefined) return
+    const q = query(usersCollection, where('uid', '==', uid))
+    let user: IUser = {
+        uid: "",
+        name: "",
+        email: "",
+        selectedLocations: [],
+        role: "USER"
+    };
+    await getDocs(q).then(res => res.forEach((doc) => {
+        user = {
+            uid: doc.data().uid,
+            name: doc.data().name,
+            email: doc.data().email,
+            selectedLocations: doc.data().selectedLocations,
+            role: doc.data().role
+        };
+    }));
+    return user;
+}
+
 //Auth functions
 const googleProvider = new GoogleAuthProvider();
 
