@@ -2,7 +2,7 @@ import React from "react"
 
 const PostsPage: React.FC = () => {
     return (
-            <h1>Post Detail Page</h1>
+            <h1>Posts Page</h1>
     )
 }
 
