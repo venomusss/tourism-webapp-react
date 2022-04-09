@@ -1,11 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../firebase/AuthContext";
-import {useNavigate} from "react-router-dom";
-import {logOut} from "../firebase/firebase";
+import {NavLink} from "react-router-dom";
+import {getUserById, logOut} from "../firebase/firebase";
+import {IUser} from "../types";
 
 const Header: React.FC = () => {
     const user = useContext(AuthContext);
-    const nav = useNavigate();
+    const [dbUser, setDbUser] = useState<IUser | undefined>(undefined)
+    useEffect(() => {
+        getUserById(user?.uid).then((user) => {
+            setDbUser(user)
+        })
+    }, [user?.uid])
     return (
         <header className="header">
             <div className='logo'><img className='logo-img' alt='' src='imgs/green.png'/></div>
@@ -15,31 +21,21 @@ const Header: React.FC = () => {
             </label>
             {user ?
                 <ul className="menu">
-                    {user ?
-                        <li>One</li>
+                    {dbUser?.role === 'ADMIN' ?
+                        <NavLink to='/requests'>Admin Panel</NavLink>
                         :
-                        <li>One</li>
+                        <NavLink to='/posts'>Home</NavLink>
                     }
-                    <li>img</li>
-                    <li onClick={() => {
-                        logOut()
-                    }}>Log Out
-                    </li>
+                    <NavLink to='/login' onClick={() => logOut()}>Log Out</NavLink>
+                    <NavLink className='profile' to='/profile'>
+                        <div className="avatar">{dbUser?.name.substr(0, 1)}</div>
+                    </NavLink>
                 </ul>
                 :
                 <ul className="menu">
-                    <li onClick={() => {
-                        nav('/')
-                    }}>Home
-                    </li>
-                    <li onClick={() => {
-                        nav('/login')
-                    }}>Log In
-                    </li>
-                    <li onClick={() => {
-                        nav('/signup')
-                    }}>Sign Up
-                    </li>
+                    <NavLink to='/posts'>Home</NavLink>
+                    <NavLink to='/login'>Log In</NavLink>
+                    <NavLink to='/signup'>Sign Up</NavLink>
                 </ul>}
         </header>
     );

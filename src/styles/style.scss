@@ -7,6 +7,9 @@ $border: #857C8D;
 $headersize: 12vh*0.67;
 $navlink:#F8F2F4;
 $navlinkhover:#e0dfdf;
+$colors: #382b54, #f7aa35, #be217b, #f73535, #95c1da, #4babaf;
+$key: random(6);
+$avatarColor: nth($colors, $key);
 
 %label {
   color: $border;
@@ -88,6 +91,7 @@ $navlinkhover:#e0dfdf;
 body {
   margin: 0;
   padding: 0;
+  font-family: $font;
 }
 
 .auth-container {
@@ -174,12 +178,15 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 460px;
+    width: 500px;
     justify-content: space-between;
+    height: 100%;
+    align-items: center;
   }
 
-  .menu > li {
+  .menu > a {
     font-weight: 700;
+    text-decoration: none;
     font-size: 24px;
     line-height: 28px;
     text-align: center;
@@ -254,21 +261,24 @@ body {
       width: 100%;
       justify-content: center;
       align-items: center;
+      height: auto;
     }
-    #menu-toggle ~ .menu li {
+    #menu-toggle ~ .menu a{
+      display: none;
       height: 0;
       margin: 0;
       padding: 0;
       border: 0;
-      transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      transition: .2s linear;
     }
-    #menu-toggle:checked ~ .menu li {
+    #menu-toggle:checked ~ .menu a{
+      display: flex;
       border: 1px solid #333;
       height: 30px;
       padding: 0.5em;
       transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
     }
-    .menu > li {
+    .menu > a{
       display: flex;
       justify-content: center;
       margin: 0;
@@ -277,8 +287,22 @@ body {
       color: white;
       background-color: #222;
     }
-    .menu > li:not(:last-child) {
+    .menu > a:not(:last-child){
       border-bottom: 1px solid #444;
     }
   }
+}
+
+.profile{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar{
+  @extend %center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background: $avatarColor;
 }

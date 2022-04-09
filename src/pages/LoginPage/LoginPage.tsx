@@ -1,11 +1,7 @@
-import React, {useContext} from "react"
-import {AuthContext} from "../../firebase/AuthContext";
-import {useNavigate} from "react-router-dom";
 import {LoginForm} from "../../components/LoginForm";
+import React from "react";
 
 const LoginPage: React.FC = () => {
-    const user = useContext(AuthContext);
-    const nav = useNavigate();
     return (
        <LoginForm/>
     )
