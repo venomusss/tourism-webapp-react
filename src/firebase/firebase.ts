@@ -12,7 +12,7 @@ import {
     collection,
     addDoc,
     query, where, getDocs,
-    serverTimestamp
+    serverTimestamp,
 } from "firebase/firestore"
 import {ILocation, IUser} from "../types";
 
@@ -35,10 +35,9 @@ export const db = getFirestore(app);
 const usersCollection = collection(db, 'users');
 const locationCollection = collection(db, 'locations');
 
-//todo add location
 // export const addLocation = async ({title, description, images, coordinates}: ILocation) => {
 //     const newLocation: ILocation = {
-//         id: Date.now(),
+//         id: String(Date.now()),
 //         title: title,
 //         images: images,
 //         coordinates: coordinates,
@@ -47,6 +46,17 @@ const locationCollection = collection(db, 'locations');
 //     }
 //     await addDoc(locationCollection, newLocation)
 // }
+
+export const getUserById = async (uid: string | undefined) => {
+    if (uid === undefined) return
+    const q = query(usersCollection, where('uid', '==', uid))
+    let user: Object = {};
+    await getDocs(q).then(res => res.forEach((doc) => {
+        user = doc.data();
+    }));
+    return user;
+}
+
 
 //Auth functions
 const googleProvider = new GoogleAuthProvider();
@@ -59,13 +69,13 @@ export const loginAccountWithGoogle = async () => {
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
             const newUser: IUser = {
-                id: user.uid,
+                uid: user.uid,
                 name: user.displayName as string,
                 email: user.email as string,
                 role: 'USER',
                 selectedLocations: [],
             }
-            await addDoc(collection(db, "users"), newUser);
+            await addDoc(usersCollection, newUser);
         }
     } catch (error) {
         console.error(error);
@@ -77,7 +87,7 @@ export const createAccountWithEmailAndPassword = async (email: string, password:
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
         const newUser: IUser = {
-            id: user.uid,
+            uid: user.uid,
             name: name,
             email: user.email as string,
             role: 'USER',
