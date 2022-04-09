@@ -1,5 +1,5 @@
 import React from "react"
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route, Navigate} from "react-router-dom"
 import AuthMiddleware from "./middlewares/AuthMiddleware";
 import AdminRequestsPage from "./pages/AdminRequestsPage/AdminRequestsPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -14,7 +14,8 @@ function App() {
     return (
         <Routes>
             <Route path={'/'} element={<Layout/>}>
-                <Route path="/" element={<PostsPage/>}/>
+                <Route path="/" element={<Navigate to={"/posts"}/>}/>
+                <Route path="/posts" element={<PostsPage/>}/>
                 <Route path="/posts/:postId" element={<PostDetailPage/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
                 <Route path="/profile/:profileId" element={<ProfilePage/>}/>
