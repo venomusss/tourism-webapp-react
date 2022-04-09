@@ -11,8 +11,10 @@ import {
     getFirestore,
     collection,
     addDoc,
-    query, where, getDocs
+    query, where, getDocs,
+    serverTimestamp
 } from "firebase/firestore"
+import {ILocation, IUser} from "../types";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -30,7 +32,21 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 //DB functions
-const usersCollection = collection(db, 'users')
+const usersCollection = collection(db, 'users');
+const locationCollection = collection(db, 'locations');
+
+//todo add location
+// export const addLocation = async ({title, description, images, coordinates}: ILocation) => {
+//     const newLocation: ILocation = {
+//         id: Date.now(),
+//         title: title,
+//         images: images,
+//         coordinates: coordinates,
+//         description: description,
+//         date: serverTimestamp(),
+//     }
+//     await addDoc(locationCollection, newLocation)
+// }
 
 //Auth functions
 const googleProvider = new GoogleAuthProvider();
@@ -42,12 +58,14 @@ export const loginAccountWithGoogle = async () => {
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
-            await addDoc(collection(db, "users"), {
-                uid: user.uid,
-                name: user.displayName,
-                email: user.email,
-                role: 'USER'
-            });
+            const newUser: IUser = {
+                id: user.uid,
+                name: user.displayName as string,
+                email: user.email as string,
+                role: 'USER',
+                selectedLocations: [],
+            }
+            await addDoc(collection(db, "users"), newUser);
         }
     } catch (error) {
         console.error(error);
@@ -58,12 +76,14 @@ export const createAccountWithEmailAndPassword = async (email: string, password:
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        await addDoc(usersCollection, {
-            uid: user.uid,
+        const newUser: IUser = {
+            id: user.uid,
             name: name,
-            email: email,
-            role: 'USER'
-        })
+            email: user.email as string,
+            role: 'USER',
+            selectedLocations: [],
+        }
+        await addDoc(usersCollection, newUser)
     } catch (error) {
         console.error(error)
     }
