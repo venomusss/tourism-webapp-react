@@ -44,6 +44,7 @@ const locationCollection = collection(db, 'locations');
 //         coordinates: coordinates,
 //         description: description,
 //         date: serverTimestamp(),
+//         rate: 0
 //     }
 //     await addDoc(locationCollection, newLocation)
 // }
@@ -59,7 +60,7 @@ export const loginAccountWithGoogle = async () => {
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
             const newUser: IUser = {
-                id: user.uid,
+                uid: user.uid,
                 name: user.displayName as string,
                 email: user.email as string,
                 role: 'USER',
@@ -77,7 +78,7 @@ export const createAccountWithEmailAndPassword = async (email: string, password:
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
         const newUser: IUser = {
-            id: user.uid,
+            uid: user.uid,
             name: name,
             email: user.email as string,
             role: 'USER',
