@@ -7,22 +7,22 @@ import PostsPage from "./pages/PostsPage/PostsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import RequestFormPage from "./pages/RequestFormPage/RequestFormPage";
-import {logOut} from "./firebase/firebase";
+import Layout from "./components/Header";
 
 function App() {
     return (
         <Routes>
             // AuthMiddleware that will redirect to posts or login
-            <Route path="/" element={<button onClick={() =>{logOut()}}>logout</button>}/>
-
-            <Route path="/posts" element={<PostsPage/>}/>
-            <Route path="/posts/:postId" element={<PostDetailPage/>}/>
-            <Route path="/profile" element={<ProfilePage/>}/>
-            <Route path="/profile/:profileId" element={<ProfilePage/>}/>
-            <Route path="/requests" element={<AdminRequestsPage/>}/>
-            <Route path="/requestPost" element={<RequestFormPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/signup" element={<RegisterPage/>}/>
+            <Route path='/' element={<Layout/>}>
+                <Route path="/" element={<h1>App</h1>}/>
+                <Route path="/posts" element={<PostsPage/>}/>
+                <Route path="/posts/:postId" element={<PostDetailPage/>}/>
+                <Route path="/profile" element={<ProfilePage/>}/>
+                <Route path="/profile/:profileId" element={<ProfilePage/>}/>
+                <Route path="/requests" element={<AdminRequestsPage/>}/>
+                <Route path="/requestPost" element={<RequestFormPage/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/signup" element={<RegisterPage/>}/></Route>
         </Routes>
     );
 }
