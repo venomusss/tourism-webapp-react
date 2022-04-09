@@ -13,7 +13,7 @@ function App() {
     return (
         <Routes>
             // AuthMiddleware that will redirect to posts or login
-            <Route path='/' element={<Navigate to="/posts"/>} />
+            <Route path='/' element={<PostsPage />} />
             <Route path="/posts" element={<PostsPage/>}/>
             <Route path="/posts/:postId" element={<PostDetailPage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
