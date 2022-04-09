@@ -3,7 +3,7 @@ import {AuthContext} from "../firebase/AuthContext";
 import {useNavigate, Outlet} from "react-router-dom";
 import {logOut} from "../firebase/firebase";
 
-const Layout: React.FC = () => {
+export const Layout: React.FC = () => {
     const user = useContext(AuthContext);
     const nav = useNavigate();
     return (
@@ -48,4 +48,3 @@ const Layout: React.FC = () => {
     );
 };
 
-export default Header;
