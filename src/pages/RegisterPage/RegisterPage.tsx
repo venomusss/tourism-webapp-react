@@ -6,9 +6,6 @@ import {SignupForm} from "../../components/SignupForm";
 const RegisterPage: React.FC = () => {
     const user = useContext(AuthContext);
     const nav = useNavigate();
-    if (user) {
-        nav('/', {replace: true});
-    }
     return (
         <SignupForm/>
     )
