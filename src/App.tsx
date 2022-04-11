@@ -16,7 +16,7 @@ function App() {
             <Route path={'/'} element={<Layout/>}>
                 <Route path="/" element={<Navigate to={"/posts"}/>}/>
                 <Route path="/posts" element={<PostsPage/>}/>
-                <Route path="/posts/:postId" element={<PostDetailPage/>}/>
+                <Route path="/posts/:id" element={<PostDetailPage/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
                 <Route path="/profile/:profileId" element={<ProfilePage/>}/>
                 <Route path="/requests" element={<AdminRequestsPage/>}/>
