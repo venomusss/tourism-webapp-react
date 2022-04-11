@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     }, [user?.uid])
     return (
         <header className="header">
-            <div className='logo'><img className='logo-img' alt='' src='imgs/green.png'/></div>
+            <div className='logo'><img className='logo-img' alt='' src='../imgs/green.png'/></div>
             <input id="menu-toggle" type="checkbox"/>
             <label className='menu-button-container' htmlFor="menu-toggle">
                 <div className='menu-button'/>

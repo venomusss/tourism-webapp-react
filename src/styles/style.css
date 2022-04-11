@@ -114,8 +114,8 @@ body {
 }
 
 .header .logo {
-  height: 8.04vh;
-  width: 8.04vh;
+  height: 9vh;
+  width: 9vh;
 }
 .header .logo-img {
   width: 100%;
@@ -246,10 +246,15 @@ body {
 }
 
 .avatar {
-  height: 50px;
-  width: 50px;
+  height: 9vh;
+  width: 9vh;
   border-radius: 50px;
-  background: #f7aa35;
+  background: #95c1da;
+}
+
+.leaflet-container {
+  width: 500px;
+  height: 300px;
 }
 
 /*# sourceMappingURL=style.css.map */
