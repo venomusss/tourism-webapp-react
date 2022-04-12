@@ -1,19 +1,28 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {MapContainer, Marker, TileLayer, useMapEvents} from "react-leaflet";
-import {LatLngExpression, LeafletMouseEvent} from "leaflet";
+import {LeafletMouseEvent} from "leaflet";
+import {ICoordinates} from "../types";
 
-const ChangeMarkerMap: FC = () => {
-    const center: LatLngExpression = {
+interface ChangeMarkerMapProps {
+    onMapClick: (coordinates: ICoordinates) => void
+}
+
+const ChangeMarkerMap: FC<ChangeMarkerMapProps> = ({onMapClick}) => {
+    const center: ICoordinates = {
         lat: 50.44827739983516,
         lng: 30.524597066687424
     }
 
-    const [position, setPosition] = useState<LatLngExpression>(center)
+    const [position, setPosition] = useState<ICoordinates>(center)
+
+    useEffect(() => {
+        onMapClick(position)
+    }, [position])
 
     function LocationMarker() {
         useMapEvents({
             click(e: LeafletMouseEvent) {
-                setPosition(e.latlng)
+                setPosition({lat: e.latlng.lat, lng: e.latlng.lng})
             },
         })
 
