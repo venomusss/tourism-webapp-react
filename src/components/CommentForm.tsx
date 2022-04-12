@@ -14,10 +14,8 @@ const CommentForm: FC = () => {
     return (
         <form className="comment-form">
             <div className="avatar">{dbUser?.name.substr(0, 1)}</div>
-            <div className="comment-form-inputs">
-                <input type="text" className="comment-input" placeholder='Add a comment...'/>
-                <button className="comment-button">Submit</button>
-            </div>
+            <input type="text" className="comment-input" placeholder='Add a comment...'/>
+            <button className="comment-button">Submit</button>
         </form>
     );
 };
