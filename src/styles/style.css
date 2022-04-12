@@ -249,7 +249,7 @@ body {
   height: 9vh;
   width: 9vh;
   border-radius: 50px;
-  background: #382b54;
+  background: #be217b;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;
@@ -270,7 +270,7 @@ body {
 }
 
 .content-container {
-  padding: 0 100px 100px 100px;
+  padding: 0 100px 200px 100px;
 }
 
 .back {
