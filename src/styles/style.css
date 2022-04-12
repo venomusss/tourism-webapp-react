@@ -1,6 +1,6 @@
 .form-label {
   color: #857C8D;
-  font-size: 21px;
+  font-size: 18px;
   letter-spacing: 0.05em;
   line-height: 26px;
   font-weight: 400;
@@ -24,8 +24,6 @@
 }
 
 .form-input {
-  height: 55px;
-  width: 405px;
   background: rgba(75, 58, 114, 0.05);
   border: 2px solid #857C8D;
   box-sizing: border-box;
@@ -43,17 +41,18 @@
 .submit, .google-button {
   font-family: "Montserrat", sans-serif;
   width: 405px;
-  height: 55px;
+  height: 45px;
   background: #417B5A;
   color: #ffffff;
   font-weight: 500;
-  font-size: 21px;
+  font-size: 18px;
   line-height: 19px;
   border-radius: 5px;
   border: 0;
   transition: 0.2s linear;
   cursor: pointer;
   letter-spacing: 0.05em;
+  margin-top: 20px;
 }
 .submit:hover, .google-button:hover {
   background: #295d3f;
@@ -61,7 +60,7 @@
 
 .google-button {
   height: 25px;
-  width: 200px;
+  width: 170px;
   justify-content: space-around;
   background: #ffffff;
   color: #4B3A72;
@@ -86,7 +85,7 @@ body {
 .login {
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 410px;
+  height: 370px;
   width: 405px;
   justify-content: space-between;
 }
@@ -94,15 +93,20 @@ body {
 .register {
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 510px;
+  height: 470px;
   width: 405px;
   justify-content: space-between;
+}
+
+.form-input {
+  height: 45px;
+  width: 405px;
 }
 
 .header {
   font-family: "Montserrat", sans-serif;
   width: 100%;
-  height: 12vh;
+  height: 9.5vh;
   background: #417B5A;
   display: flex;
   flex-direction: row;
@@ -114,8 +118,8 @@ body {
 }
 
 .header .logo {
-  height: 9vh;
-  width: 9vh;
+  height: 6.75vh;
+  width: 6.75vh;
 }
 .header .logo-img {
   width: 100%;
@@ -135,7 +139,7 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 500px;
+  width: 400px;
   justify-content: space-between;
   height: 100%;
   align-items: center;
@@ -143,7 +147,7 @@ body {
 .header .menu > a {
   font-weight: 700;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 19px;
   line-height: 28px;
   text-align: center;
   letter-spacing: 0.05em;
@@ -246,10 +250,10 @@ body {
 }
 
 .avatar {
-  height: 9vh;
-  width: 9vh;
+  height: 6.75vh;
+  width: 6.75vh;
   border-radius: 50px;
-  background: #95c1da;
+  background: #f7aa35;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;
@@ -270,7 +274,7 @@ body {
 }
 
 .content-container {
-  padding: 0 100px 200px 100px;
+  padding: 0 100px 100px 100px;
 }
 
 .back {
@@ -320,7 +324,7 @@ body {
 
 .location-image-container {
   width: 100%;
-  height: auto;
+  height: 70vh;
   overflow: hidden;
 }
 
@@ -350,7 +354,7 @@ body {
   width: 67%;
   font-style: italic;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 120%;
   letter-spacing: 0.05em;
   color: #000000;
