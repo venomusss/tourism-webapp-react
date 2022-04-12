@@ -249,7 +249,7 @@ body {
   height: 9vh;
   width: 9vh;
   border-radius: 50px;
-  background: #be217b;
+  background: #95c1da;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;
@@ -443,7 +443,7 @@ body {
   font-family: "Montserrat", sans-serif;
   background: #417B5A;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 19px;
   text-align: center;
   letter-spacing: 0.05em;
@@ -452,6 +452,11 @@ body {
   color: #FFFFFF;
   height: 45px;
   width: 15%;
+  transition: 0.2s linear;
+  cursor: pointer;
+}
+.comment-button:hover {
+  background: #295d3f;
 }
 
 .comments {
