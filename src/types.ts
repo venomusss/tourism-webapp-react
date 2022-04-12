@@ -12,7 +12,7 @@ export interface IUser {
 
 export interface ILocation {
     id: string,
-    title: string,
+    name: string,
     coordinates: LatLngExpression,
     images: string[],
     description: string,
