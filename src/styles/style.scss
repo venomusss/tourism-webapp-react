@@ -4,7 +4,7 @@ $purple: #4B3A72;
 $space: 0.05em;
 $hovergreen: #295d3f;
 $border: #857C8D;
-$headersize: 12vh*0.75;
+$headersize: 9vh*0.75;
 $navlink: #F8F2F4;
 $navlinkhover: #e0dfdf;
 $colors: #382b54, #f7aa35, #be217b, #f73535, #95c1da, #4babaf;
@@ -13,7 +13,7 @@ $avatarColor: nth($colors, $key);
 
 %label {
   color: $border;
-  font-size: 21px;
+  font-size: 18px;
   letter-spacing: 0.05em;
   line-height: 26px;
   font-weight: 400;
@@ -37,8 +37,6 @@ $avatarColor: nth($colors, $key);
 }
 
 %form-input {
-  height: 55px;
-  width: 405px;
   background: rgba(75, 58, 114, 0.05);
   border: 2px solid $border;
   box-sizing: border-box;
@@ -57,18 +55,18 @@ $avatarColor: nth($colors, $key);
 %form-submit {
   font-family: $font;
   width: 405px;
-  height: 55px;
+  height: 45px;
   background: #417B5A;
   color: #ffffff;
   font-weight: 500;
-  font-size: 21px;
+  font-size: 18px;
   line-height: 19px;
   border-radius: 5px;
   border: 0;
   transition: .2s linear;
   cursor: pointer;
   letter-spacing: $space;
-
+  margin-top: 20px;
   &:hover {
     background: $hovergreen;
   }
@@ -78,7 +76,7 @@ $avatarColor: nth($colors, $key);
   @extend %center;
   @extend %form-submit;
   height: 25px;
-  width: 200px;
+  width: 170px;
   justify-content: space-around;
   background: #ffffff;
   color: $purple;
@@ -98,15 +96,16 @@ body {
 
 .auth-container {
   @extend %center;
-  min-height: 88vh;
+  height: 90vh;
   width: 100vw;
 }
+
 
 .login {
   @extend %center;
   flex-direction: column;
   font-family: $font;
-  height: 410px;
+  height: 370px;
   width: 405px;
   justify-content: space-between;
 }
@@ -115,7 +114,7 @@ body {
   @extend %center;
   flex-direction: column;
   font-family: $font;
-  height: 510px;
+  height: 470px;
   width: 405px;
   justify-content: space-between;
 }
@@ -130,6 +129,8 @@ body {
 }
 
 .form-input {
+  height: 45px;
+  width: 405px;
   @extend %form-input;
 }
 
@@ -144,7 +145,7 @@ body {
 .header {
   font-family: $font;
   width: 100%;
-  height: 12vh;
+  height: 9.5vh;
   background: $green;
   display: flex;
   flex-direction: row;
@@ -182,7 +183,7 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 500px;
+    width: 400px;
     justify-content: space-between;
     height: 100%;
     align-items: center;
@@ -191,7 +192,7 @@ body {
   .menu > a {
     font-weight: 700;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 19px;
     line-height: 28px;
     text-align: center;
     letter-spacing: 0.05em;
@@ -326,19 +327,23 @@ body {
 }
 
 .page-container {
-  padding: 20px 180px;
+  padding: 20px 140px;
+}
+
+.content-container{
+  padding:0 100px 100px 100px;
 }
 
 .back {
   border-bottom: 1px solid #23272F;
-  padding: 5px 0 25px 0;
-  margin-bottom: 80px;
+  padding: 5px 0 10px 0;
+  margin-bottom: 40px;
   box-sizing: border-box;
 }
 
 .back-link {
   font-weight: 500;
-  font-size: 29px;
+  font-size: 21px;
   line-height: 37px;
   display: flex;
   align-items: center;
@@ -356,7 +361,7 @@ body {
   min-height: 100vh;
   background-color: rgba(75, 58, 114, 0.1);
   border-radius: 5px;
-  padding: 25px;
+  padding: 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -366,17 +371,17 @@ body {
   background-color: #ffffff;
   width: 100%;
   overflow: hidden;
-  margin: 12.5px 0;
+  margin: 7.5px 0;
 }
 
 .first {
   border-radius: 5px 5px 0 0;
-  margin: 0 0 12.5px 0;
+  margin: 0 0 7.5px 0;
 }
 
 .location-image-container {
   width: 100%;
-  height: auto;
+  height: 70vh;
   @extend %center;
   overflow: hidden;
 }
@@ -408,7 +413,7 @@ body {
   width: 67%;
   font-style: italic;
   font-weight: 500;
-  font-size: 46px;
+  font-size: 32px;
   line-height: 120%;
   letter-spacing: 0.05em;
   color: #000000;
@@ -416,7 +421,7 @@ body {
 
 .text-description {
   font-weight: 400;
-  font-size: 24px;
+  font-size: 21px;
   line-height: 140%;
   color: #000000;
 }
@@ -432,22 +437,22 @@ body {
 
 .add-text {
   font-weight: 500;
-  font-size: 25px;
+  font-size: 21px;
   line-height: 30px;
   display: flex;
   align-items: center;
   letter-spacing: 0.05em;
   color: #000000;
-  max-width: 85%;
+  max-width: 65%;
 }
 
 .add-button {
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: $green;
   border-radius: 25px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 30px;
   line-height: 37px;
   letter-spacing: 0.05em;
@@ -463,7 +468,7 @@ body {
 .map-container {
   .leaflet-container {
     width: 100%;
-    height: 650px;
+    height: 60vh;
   }
 
   padding: 25px;
@@ -476,18 +481,12 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
 }
 
-.comment-form-inputs {
-  width: 90%;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 
 .comment-input {
-  width: 78%;
+  width: 70%;
   max-height: 100%;
   border: none;
   border-bottom: 1px solid #000000;
@@ -512,7 +511,7 @@ body {
   font-family: $font;
   background: $green;
   font-weight: 300;
-  font-size: 21px;
+  font-size: 20px;
   line-height: 19px;
   text-align: center;
   letter-spacing: 0.05em;
@@ -520,5 +519,15 @@ body {
   border-radius: 5px;
   color: #FFFFFF;
   height: 45px;
-  width: 150px;
+  width: 15%;
+  transition: .2s linear;
+  cursor: pointer;
+  &:hover{
+    background: $hovergreen;
+  }
+}
+
+.comments{
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 0;
 }
