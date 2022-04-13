@@ -14,7 +14,8 @@ import {
     query, where, getDocs,
     serverTimestamp
 } from "firebase/firestore"
-import {ILocation, IUser} from "../types";
+import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
+import {ICoordinates, ILocation, IUser} from "../types";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -30,24 +31,39 @@ const app = initializeApp(firebaseConfig);
 //Init services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 //DB functions
 const usersCollection = collection(db, 'users');
 const locationCollection = collection(db, 'locations');
 
-//todo add location
-// export const addLocation = async ({title, description, images, coordinates}: ILocation) => {
-//     const newLocation: ILocation = {
-//         id: Date.now(),
-//         title: title,
-//         images: images,
-//         coordinates: coordinates,
-//         description: description,
-//         date: serverTimestamp(),
-//         rate: 0
-//     }
-//     await addDoc(locationCollection, newLocation)
-// }
+export const uploadFile = (file: File): Promise<string> => {
+    const imageStorageRef = ref(storage, `/images/${file.name}`)
+    const upload = uploadBytesResumable(imageStorageRef, file)
+    return new Promise<string>((resolve, reject) => {
+        upload.on(
+            "state_changed",
+            async () => {
+                const url = await getDownloadURL(upload.snapshot.ref);
+                resolve(url)
+            },
+            reject
+        )
+    })
+}
+
+export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates) => {
+    const newLocation: ILocation = {
+        name: name,
+        images: urls,
+        coordinates: coordinates,
+        description: description,
+        date: serverTimestamp(),
+        rate: 0,
+        comments: []
+    }
+    await addDoc(locationCollection, newLocation)
+}
 
 export const getUserById = async (uid: string | undefined) => {
     if (uid === undefined) return
