@@ -1,6 +1,5 @@
 import firebase from "firebase/compat";
 import FieldValue = firebase.firestore.FieldValue;
-import {LatLngExpression} from "leaflet";
 
 export interface IUser {
     uid: string,
@@ -11,26 +10,28 @@ export interface IUser {
 }
 
 export interface ILocation {
-    id: string,
-    title: string,
-    coordinates: LatLngExpression,
+    name: string,
+    coordinates: ICoordinates,
     images: string[],
     description: string,
     date: FieldValue,
+    comments: IComment[]
     rate: number,
 }
 
 export interface IComment {
-    id: string,
-    location: ILocation,
     author: IUser,
     text: string,
     date: Date,
 }
 
 export interface ISuggestion {
-    id: string,
     author: IUser,
     image: File,
     location: ILocation,
+}
+
+export interface ICoordinates {
+    lat: number,
+    lng: number
 }
