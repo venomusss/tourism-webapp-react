@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {NavLink} from "react-router-dom";
 import Map from "../../components/Map";
 import CommentForm from "../../components/CommentForm";
-
+import { useParams } from "react-router-dom";
+import { getPostById } from "../../firebase/firebase";
+import { ILocation } from "../../types";
 const PostDetailPage: React.FC = () => {
+    const {id} = useParams()
+    const [post, setPost] = useState<ILocation | undefined>(undefined)
+    
+    useEffect(() => {
+        if (!id) {
+            return 
+        }
+        // const getPost = async () => {
+        //     const res = getPostById(id) 
+        //     console.log(res)
+        // }
+        // getPost()
+
+        getPostById(id).then((loc) => {
+            setPost(loc)
+        })
+    }, [])
+
+    console.log(post)
+    if (!post) {
+        return <></>
+    }
 
     return (
         <div className='page-container'>
@@ -28,21 +52,11 @@ const PostDetailPage: React.FC = () => {
                         </div>
                         <div className="location-text">
                             <div className="text-top">
-                                <div className="location-title">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry
+                                <div className="location-title">{post.name}
                                 </div>
                                 <div className="rating">Rating</div>
                             </div>
-                            <div className="text-description">Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-                                the
-                                1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                                specimen book. It has survived not only five centuries, but also the leap into
-                                electronic
-                                typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                                release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                                desktop
-                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            <div className="text-description">{post.description}
                             </div>
                         </div>
                     </div>
@@ -52,8 +66,8 @@ const PostDetailPage: React.FC = () => {
                     </div>
                     <div className="white-container map-container">
                         <Map position={{
-                            lat: 50.44827739983516,
-                            lng: 30.524597066687424
+                            lat:    post.coordinates.lat,
+                            lng: post.coordinates.lng
                         }}/>
                     </div>
                     <div className="white-container add">

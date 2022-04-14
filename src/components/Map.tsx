@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {MapContainer, Marker, TileLayer} from "react-leaflet";
-import {LatLngExpression} from "leaflet";
+import { ICoordinates } from '../types';
 
 interface IMapProps {
-    position: LatLngExpression
+    position: ICoordinates
 }
 const Map: FC<IMapProps> = ({position}) => {
     return (

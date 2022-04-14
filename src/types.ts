@@ -10,13 +10,15 @@ export interface IUser {
 }
 
 export interface ILocation {
+    id?: string
     name: string,
     coordinates: ICoordinates,
     images: string[],
     description: string,
     date: FieldValue,
     comments: IComment[]
-    rate: number,
+    rating: IRating[],
+    cachedRating: number
 }
 
 export interface IComment {
@@ -34,4 +36,9 @@ export interface ISuggestion {
 export interface ICoordinates {
     lat: number,
     lng: number
+}
+
+export interface IRating {
+    userId: string,
+    value: number
 }

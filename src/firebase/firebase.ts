@@ -1,3 +1,4 @@
+import { timeStamp } from "console";
 import {initializeApp} from "firebase/app";
 import {
     getAuth,
@@ -12,10 +13,14 @@ import {
     collection,
     addDoc,
     query, where, getDocs,
-    serverTimestamp
+    serverTimestamp,
+    doc,
+    updateDoc,
+    getDoc,
+    FieldValue
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-import {ICoordinates, ILocation, IUser} from "../types";
+import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -59,8 +64,9 @@ export const addLocation = async (name: string, description: string, urls: strin
         coordinates: coordinates,
         description: description,
         date: serverTimestamp(),
-        rate: 0,
-        comments: []
+        rating: new Array<IRating>(),
+        cachedRating: 0,
+        comments: new Array<IComment>()
     }
     await addDoc(locationCollection, newLocation)
 }
@@ -139,3 +145,79 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
 export const logOut = async () => {
     await signOut(auth);
 };
+
+//queries
+
+export const getAllPosts = () => {
+    return query(locationCollection)
+}
+
+export const getPostById = async (id: string) => {
+    if (id === undefined) return
+    const q = query(locationCollection, where('uid', '==', id))
+    let loc: ILocation = {
+        id: "",
+        name: "",
+        description: "",
+        comments: [],
+        images: [],
+        date: serverTimestamp(),
+        rating: [],
+        cachedRating: 0,
+        coordinates: {
+            lat: 0,
+            lng: 0
+        }
+
+    };
+    await getDocs(q).then(res => res.forEach((doc) => {
+        loc = {
+            id: doc.id,
+            name: doc.data().name,
+            description: doc.data().description,
+            comments: doc.data().comments,
+            images: doc.data().images,
+            date: doc.data().timeStamp,
+            rating: doc.data().rating,
+            cachedRating: doc.data().cachedRating,
+            coordinates: doc.data().coordinates
+        };
+    }));
+    return loc;
+}
+
+export const updatePostRating = async (post: ILocation, rating: IRating) => {
+    const postRef = doc(db, "locations", post.id || "")
+    
+    const ratingSum = post.rating.reduce((acc, currPost) => {
+        return acc + currPost.value
+    }, 0)
+
+    console.log(ratingSum)
+
+    try {
+        await updateDoc(postRef, {
+            rating: post.rating.concat(rating),
+            cachedRating: (ratingSum + rating.value) / (post.rating.length + 1)
+        })
+    } catch (e) {
+        console.log((e as Error).message)
+    }
+}
+
+export const changePostRating = async (post: ILocation, rating: IRating) => {
+    const postRef = doc(db, "locations", post.id || "")
+
+    let prevUserRating = post.rating.find(rate => rate.userId === rating.userId)?.value || 0
+    let newRating = post.rating.filter(rate => rate.userId !== rating.userId).concat(rating)
+    let newCachedValue = (post.cachedRating - prevUserRating + rating.value) / post.rating.length
+
+    try {
+        await updateDoc(postRef, {
+            rating: newRating,
+            cachedRating: newCachedValue
+        })
+    } catch (e) {
+        console.log((e as Error).message) 
+    }
+}
