@@ -15,6 +15,7 @@ import {
     serverTimestamp,
     doc,
     updateDoc,
+    getDoc
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
