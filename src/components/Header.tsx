@@ -14,7 +14,9 @@ const Header: React.FC = () => {
     }, [user?.uid])
     return (
         <header className="header">
-            <div className='logo'><img className='logo-img' alt='' src='../imgs/green.png'/></div>
+            <NavLink to={"/"}>
+                <div className='logo'><img className='logo-img' alt='' src='../imgs/green.png'/></div>
+            </NavLink>
             <input id="menu-toggle" type="checkbox"/>
             <label className='menu-button-container' htmlFor="menu-toggle">
                 <div className='menu-button'/>
