@@ -20,12 +20,16 @@ const PostsPage: React.FC = () => {
     }, [])
 
     const postsToRender = posts.map((post) => {
-        return <PostItem post={post} />
+        return <PostItem key={post.id} post={post} />
     })
 
     return (
         <>
             <div className="page-container">
+                <div className='sorting-panel'>
+                    <div className="sort-item">Popular</div>
+                    <div className="sort-item">Country</div>
+                </div>
                 <div className="content-container">
                     {postsToRender}
                 </div>
