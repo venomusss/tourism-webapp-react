@@ -10,7 +10,7 @@ export interface IUser {
 }
 
 export interface ILocation {
-    id?: string
+    id?: string,
     name: string,
     coordinates: ICoordinates,
     images: string[],

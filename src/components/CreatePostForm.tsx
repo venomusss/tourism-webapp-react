@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import ChangeMarkerMap from "./ChangeMarkerMap";
 import {ICoordinates} from "../types";
 import {addLocation} from "../firebase/firebase";
@@ -19,10 +19,10 @@ const CreatePostForm: FC = () => {
         setCoordinates(coordinates)
     }
 
-    useEffect(() => {
+    const handleChangeFiles = () => {
         if (filesRef.current?.files === undefined || filesRef.current?.files === null) return
         Promise.all(Array.from(filesRef.current?.files).map(uploadFile)).then(setUrls)
-    }, [filesRef])
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -54,7 +54,7 @@ const CreatePostForm: FC = () => {
                 <div>Coordinates</div>
                 <ChangeMarkerMap onMapClick={handleMapClick}/>
                 <div>Add photos</div>
-                <input type={"file"} ref={filesRef} multiple/>
+                <input type={"file"} ref={filesRef} onChange={() => handleChangeFiles()} multiple/>
             </div>
             <button onClick={handleSubmit}>Add post</button>
         </form>
