@@ -1,4 +1,3 @@
-import { timeStamp } from "console";
 import {initializeApp} from "firebase/app";
 import {
     getAuth,
@@ -16,8 +15,6 @@ import {
     serverTimestamp,
     doc,
     updateDoc,
-    getDoc,
-    FieldValue
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
@@ -42,14 +39,13 @@ export const storage = getStorage(app);
 const usersCollection = collection(db, 'users');
 const locationCollection = collection(db, 'locations');
 
-export const uploadFile = (file: File): Promise<string> => {
-    const imageStorageRef = ref(storage, `/images/${file.name}`)
+export const uploadFile = async (file: File): Promise<string> => {
+    const imageStorageRef = await ref(storage, `/images/${file.name}`)
     const upload = uploadBytesResumable(imageStorageRef, file)
     return new Promise<string>((resolve, reject) => {
-        upload.on(
-            "state_changed",
-            async () => {
-                const url = await getDownloadURL(upload.snapshot.ref);
+        upload.then(
+            () => {
+                const url = getDownloadURL(imageStorageRef);
                 resolve(url)
             },
             reject
@@ -188,7 +184,7 @@ export const getPostById = async (id: string) => {
 
 export const updatePostRating = async (post: ILocation, rating: IRating) => {
     const postRef = doc(db, "locations", post.id || "")
-    
+
     const ratingSum = post.rating.reduce((acc, currPost) => {
         return acc + currPost.value
     }, 0)
@@ -218,6 +214,6 @@ export const changePostRating = async (post: ILocation, rating: IRating) => {
             cachedRating: newCachedValue
         })
     } catch (e) {
-        console.log((e as Error).message) 
+        console.log((e as Error).message)
     }
 }
