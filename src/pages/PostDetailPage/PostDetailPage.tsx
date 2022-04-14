@@ -5,26 +5,30 @@ import CommentForm from "../../components/CommentForm";
 import { useParams } from "react-router-dom";
 import { getPostById } from "../../firebase/firebase";
 import { ILocation } from "../../types";
+import { onSnapshot } from "firebase/firestore";
 const PostDetailPage: React.FC = () => {
     const {id} = useParams()
-    const [post, setPost] = useState<ILocation | undefined>(undefined)
+    const [post, setPost] = useState<ILocation>()
     
     useEffect(() => {
         if (!id) {
-            return 
+            return
         }
-        // const getPost = async () => {
-        //     const res = getPostById(id) 
-        //     console.log(res)
-        // }
-        // getPost()
-
-        getPostById(id).then((loc) => {
+        
+        const getPost = async (id: string) => {
+            const doc = await getPostById(id)
+            if (!doc.exists()) {
+                return
+            }
+            const {name, coordinates, images, description, date, rating, cachedRating, comments} = doc.data()
+            const loc = {name, coordinates, images, description, date, rating, cachedRating, id: doc.id, comments}
             setPost(loc)
-        })
+        }
+
+        getPost(id)
+
     }, [])
 
-    console.log(post)
     if (!post) {
         return <></>
     }

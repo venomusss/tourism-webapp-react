@@ -149,37 +149,10 @@ export const getAllPosts = () => {
 }
 
 export const getPostById = async (id: string) => {
-    if (id === undefined) return
-    const q = query(locationCollection, where('uid', '==', id))
-    let loc: ILocation = {
-        id: "",
-        name: "",
-        description: "",
-        comments: [],
-        images: [],
-        date: serverTimestamp(),
-        rating: [],
-        cachedRating: 0,
-        coordinates: {
-            lat: 0,
-            lng: 0
-        }
-
-    };
-    await getDocs(q).then(res => res.forEach((doc) => {
-        loc = {
-            id: doc.id,
-            name: doc.data().name,
-            description: doc.data().description,
-            comments: doc.data().comments,
-            images: doc.data().images,
-            date: doc.data().timeStamp,
-            rating: doc.data().rating,
-            cachedRating: doc.data().cachedRating,
-            coordinates: doc.data().coordinates
-        };
-    }));
-    return loc;
+    // return query(locationCollection)
+    const docRef = doc(db, "locations", id);
+    const docSnap = await getDoc(docRef);
+    return docSnap
 }
 
 export const updatePostRating = async (post: ILocation, rating: IRating) => {
