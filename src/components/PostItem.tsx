@@ -36,9 +36,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     
     const ratingToRender = post.rating.find(rate => rate.userId === currentUser?.uid)?.value || 0
     return (
-        <div className="gray-container post-item">
+        <div className="gray-container post-item" onClick={handlePostDetailNavigate}>
             <div className="post-item-img-container">
-                <img alt='' className="post-item_img" src={post.images[0]} onClick={handlePostDetailNavigate}/>
+                <img alt='' className="post-item_img" src={post.images[0]}/>
             </div>
             <div className="white-container last">
                 <div className="item-text">
