@@ -676,6 +676,7 @@ body {
   min-height: 85%;
   max-height: 85%;
   padding: 15px;
+  resize: none;
 }
 
 .form-left{
@@ -757,4 +758,19 @@ body {
 
 .password-input {
   font-size: 40px;
+}
+
+.slide{
+  max-height: 80vh;
+  @extend %center
+}
+
+.slider-image{
+  width: 100%;
+  height: auto;
+}
+
+.slider-container{
+  padding: 25px;
+  box-sizing: border-box;
 }

@@ -17,7 +17,7 @@
   color: #4B3A72;
 }
 
-.add-files-button, .post-item-img-container, .rating, .location-image-container, .avatar, .register, .login, .auth-container, .google-button {
+.slide, .add-files-button, .post-item-img-container, .rating, .location-image-container, .avatar, .register, .login, .auth-container, .google-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -611,6 +611,7 @@ body {
   min-height: 85%;
   max-height: 85%;
   padding: 15px;
+  resize: none;
 }
 
 .form-left .first {
@@ -685,6 +686,20 @@ body {
 
 .password-input {
   font-size: 40px;
+}
+
+.slide {
+  max-height: 80vh;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+}
+
+.slider-container {
+  padding: 25px;
+  box-sizing: border-box;
 }
 
 /*# sourceMappingURL=style.css.map */
