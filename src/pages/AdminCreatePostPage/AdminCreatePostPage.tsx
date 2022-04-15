@@ -1,9 +1,13 @@
 import React, {FC} from 'react';
 import CreatePostForm from "../../components/CreatePostForm";
+import AdminNavigationPanel from "../../components/AdminNavigationPanel";
 
 const AdminCreatePostPage: FC = () => {
     return (
-        <CreatePostForm/>
+        <div className='page-container create-page'>
+            <AdminNavigationPanel/>
+            <CreatePostForm/>
+        </div>
     );
 };
 

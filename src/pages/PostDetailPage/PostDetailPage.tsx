@@ -5,7 +5,6 @@ import CommentForm from "../../components/CommentForm";
 import { useParams } from "react-router-dom";
 import { getPostById } from "../../firebase/firebase";
 import { ILocation } from "../../types";
-import { onSnapshot } from "firebase/firestore";
 const PostDetailPage: React.FC = () => {
     const {id} = useParams()
     const [post, setPost] = useState<ILocation>()
@@ -51,7 +50,7 @@ const PostDetailPage: React.FC = () => {
                     <div className="white-container first">
                         <div className="location-image-container">
                             <img
-                                src="https://img1.akspic.ru/crops/1/3/0/7/6/167031/167031-nacionalnyj_park_banf-morennoe_ozero-banff-ozero_pejto-luk_ozero-3840x2160.jpg"
+                                src={post.images[0]}
                                 alt="" className="location-image"/>
                         </div>
                         <div className="location-text">
