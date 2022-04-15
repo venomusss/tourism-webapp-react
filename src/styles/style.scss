@@ -751,3 +751,18 @@ body {
 .add-file-buton-none{
   display: none;
 }
+
+.slide{
+  max-height: 80vh;
+  @extend %center
+}
+
+.slider-image{
+  width: 100%;
+  height: auto;
+}
+
+.slider-container{
+  padding: 25px;
+  box-sizing: border-box;
+}
