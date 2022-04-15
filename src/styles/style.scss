@@ -384,7 +384,7 @@ body {
 
 .location-image-container {
   width: 100%;
-  height: 70vh;
+  height: 45vh;
   @extend %center;
   overflow: hidden;
 }
@@ -750,6 +750,14 @@ body {
 
 .add-file-buton-none{
   display: none;
+}
+
+.error-message {
+  color: #f73535;
+}
+
+.password-input {
+  font-size: 40px;
 }
 
 .slide{
