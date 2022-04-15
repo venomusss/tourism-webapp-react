@@ -649,7 +649,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  height: 400px;
+  height: 350px;
 }
 
 .form-left{
@@ -671,8 +671,11 @@ body {
 }
 
 .add-form-textarea{
+  min-width: 100%;
   max-width: 100%;
-  min-height: 90%;
+  min-height: 85%;
+  max-height: 85%;
+  padding: 15px;
 }
 
 .form-left{
@@ -699,14 +702,14 @@ body {
 
   .add-map{
     width: 100%;
-    height: 65%;
+    height: 85%;
     cursor:pointer;
   }
   .add-form-files-field{
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 35%;
+    height: 15%;
   }
 
 }
