@@ -66,7 +66,10 @@ const PostDetailPage: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="white-container slider-container"><Slider images={post.images}/></div>
+                    {post.images.length > 1 ?
+                        <div className="white-container slider-container"><Slider images={post.images}/></div> :
+                        <></>
+                    }
                     <div className="white-container add">
                         <div className="add-text">Add this place to favourites</div>
                         <button className="add-button">+</button>
