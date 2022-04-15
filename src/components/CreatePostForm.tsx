@@ -39,25 +39,31 @@ const CreatePostForm: FC = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Location name
-                    <input type="text" ref={nameRef}/>
-                </label>
-                <label>
-                    Description
-                    <textarea ref={descriptionRef}/>
-                </label>
-            </div>
-            <div>
-                <div>Coordinates</div>
-                <ChangeMarkerMap onMapClick={handleMapClick}/>
-                <div>Add photos</div>
-                <input type={"file"} ref={filesRef} onChange={() => handleChangeFiles()} multiple/>
-            </div>
-            <button onClick={handleSubmit}>Add post</button>
-        </form>
+        <div className='add-form-container'>
+            <form className='add-form' onSubmit={handleSubmit}>
+                <div className='form-title'>Add new location</div>
+                <div className="add-form-inputs">
+                    <div className='form-left'>
+                        <label className='add-form-label first'>Location name <input className='form-input location-name-input' type="text" ref={nameRef}/></label>
+                        <label className='add-form-label last'>Description <textarea className='form-input add-form-textarea' ref={descriptionRef}/></label>
+                    </div>
+                    <div className='form-right'>
+                        <div className='add-form-label'>Coordinates</div>
+                        <ChangeMarkerMap onMapClick={handleMapClick}/>
+                        <div className="add-form-files-field">
+                            <div className='add-form-label'>Add photos</div>
+                            <label className='add-files-button'>
+                                <input id='file' className='add-file-buton-none' placeholder='+' type={"file"} ref={filesRef} onChange={() => handleChangeFiles()} multiple/>
+                                +
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div className="submit-container">
+                    <button className='submit add-form-submit' onClick={handleSubmit}>Add post</button>
+                </div>
+            </form>
+        </div>
     );
 };
 

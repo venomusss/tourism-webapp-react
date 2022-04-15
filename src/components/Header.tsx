@@ -24,7 +24,10 @@ const Header: React.FC = () => {
             {user ?
                 <ul className="menu">
                     {dbUser?.role === 'ADMIN' ?
-                        <NavLink to='/requests'>Admin Panel</NavLink>
+                        <>
+                            <NavLink to='/requests'>Admin Panel</NavLink>
+                            <NavLink to='/posts'>Home</NavLink>
+                        </>
                         :
                         <NavLink to='/posts'>Home</NavLink>
                     }

@@ -32,7 +32,7 @@ const ChangeMarkerMap: FC<ChangeMarkerMapProps> = ({onMapClick}) => {
     }
 
     return (
-        <MapContainer style={{width:"300px", height:"300px", cursor: "pointer"}} center={position} zoom={10}>
+        <MapContainer className='add-map' center={position} zoom={10}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
