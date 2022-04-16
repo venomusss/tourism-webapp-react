@@ -85,7 +85,7 @@ const PostDetailPage: React.FC = () => {
                         <button className="add-button">+</button>
                     </div>
                     <div className="white-container comments">
-                        <CommentForm/>
+                        <CommentForm locationId={id}/>
                     </div>
                 </div>
             </div>

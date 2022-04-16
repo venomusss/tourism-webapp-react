@@ -22,9 +22,9 @@ export interface ILocation {
 }
 
 export interface IComment {
-    author: IUser,
+    authorId: string,
     text: string,
-    date: Date,
+    date: FieldValue,
 }
 
 export interface ISuggestion {
