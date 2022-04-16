@@ -180,8 +180,9 @@ export const changePostRating = async (post: ILocation, rating: IRating) => {
 
     let prevUserRating = post.rating.find(rate => rate.userId === rating.userId)?.value || 0
     let newRating = post.rating.filter(rate => rate.userId !== rating.userId).concat(rating)
-    let newCachedValue = (post.cachedRating - prevUserRating + rating.value) / post.rating.length
+    let newCachedValue = (post.cachedRating * post.rating.length - prevUserRating + rating.value) / post.rating.length
 
+    console.log(prevUserRating, newRating, newCachedValue)
     try {
         await updateDoc(postRef, {
             rating: newRating,

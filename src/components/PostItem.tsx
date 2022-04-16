@@ -20,23 +20,25 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 
     const userId = currentUser === null ? "" : currentUser.uid
 
-    // To refactor later =>
-    // const handleRateClick = userId !== "" ? async (value: number) => {
-    //     await updatePostRating(post, {
-    //         userId,
-    //         value
-    //     })
-    // } : (value: number) => {}
+    const handleRateClick = userId !== "" ? async (value: number) => {
+        await updatePostRating(post, {
+            userId,
+            value
+        })
+    } : (value: number) => {}
 
-    // const handleRateChange = userId !== "" ? async (value: number) => {
-    //     await changePostRating(post, {
-    //         userId,
-    //         value
-    //     })
-    // } : (value: number) => {} 
-    
-    // const ratingToRender = post.rating.find(rate => rate.userId === currentUser?.uid)?.value || 0
-    const allRating = Math.floor(post.cachedRating)
+    const handleRateChange = userId !== "" ? async (value: number) => {
+        await changePostRating(post, {
+            userId,
+            value
+        })
+    } : (value: number) => {} 
+
+    const ratingToRender = post.rating.find(rate => rate.userId === currentUser?.uid)?.value || 0
+
+    const handleRatingInteract = (value: number) => {
+        ratingToRender === 0 ? handleRateClick(value) : handleRateChange(value)
+    }
 
     return (
         <div className="gray-container post-item">
@@ -47,8 +49,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
                 <div className="item-text">
                     <div onClick={handlePostDetailNavigate} className="post-item_title">{post.name}</div>
                     <div className="post-item_rate-section">
-                        <Rating initialRating={allRating} fullSymbol={<StarIcon filled />} emptySymbol={<StarIcon filled={false}/>}/>
-                        <label>{allRating}</label>
+                        <Rating initialRating={ratingToRender} onClick={(value) => handleRatingInteract(value)}fullSymbol={<StarIcon filled />} emptySymbol={<StarIcon filled={false}/>}/>
+                        <label>{ratingToRender}</label>
+                        <h3>Overall: {Math.round(post.cachedRating)}</h3>
                     </div>
                 </div>
             </div>
