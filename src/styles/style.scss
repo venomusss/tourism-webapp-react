@@ -555,7 +555,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 120px;
+  min-height: 120px;
 }
 
 .last{
@@ -783,5 +783,12 @@ body {
 .slider-container{
   padding: 25px;
   box-sizing: border-box;
+}
+
+.comment-list{
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+  padding: 0 50px;
 }
 
