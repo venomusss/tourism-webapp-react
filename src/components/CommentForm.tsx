@@ -53,7 +53,7 @@ const CommentForm: FC<CommentFormProps> = ({locationId}) => {
                     className="comment-button">Submit
                 </button>
             </form>
-            {formik.errors.comment ? <div>{formik.errors.comment}</div> : null}
+            {formik.errors.comment ? <div className='error-message comment-error'>{formik.errors.comment}</div> : null}
         </div>
     );
 };
