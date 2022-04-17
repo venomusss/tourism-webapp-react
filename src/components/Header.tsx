@@ -12,7 +12,7 @@ const Header: React.FC = () => {
             setDbUser(user)
         })
     }, [user?.uid])
-    const openPurger = () => {
+    const openBurger = () => {
         const menu : null| HTMLElement = document.getElementById('menu');
         menu!.classList.toggle('active');
     }
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
                 <div className='logo'><img className='logo-img' alt='' src='../imgs/green.png'/></div>
             </NavLink>
             {user ?
-                <ul  onClick={openPurger} id='menu' className="menu">
+                <ul  onClick={openBurger} id='menu' className="menu">
                     {dbUser?.role === 'ADMIN' ?
                         <>
                             <NavLink to='/requests'>Admin Panel</NavLink>
@@ -38,12 +38,12 @@ const Header: React.FC = () => {
                     </NavLink>
                 </ul>
                 :
-                <ul  onClick={openPurger}  id='menu' className="menu">
+                <ul  onClick={openBurger}  id='menu' className="menu">
                     <NavLink to='/posts'>Home</NavLink>
                     <NavLink to='/login'>Log In</NavLink>
                     <NavLink to='/signup'>Sign Up</NavLink>
                 </ul>}
-                <svg onClick={openPurger} fill='white' className='header-burger' viewBox="0 0 100 80" width="70" height="70">
+                <svg onClick={openBurger} fill='white' className='header-burger' viewBox="0 0 100 80" width="70" height="70">
                     <rect width="100" height="15"/>
                     <rect y="30" width="100" height="15"/>
                     <rect y="60" width="100" height="15"/>
