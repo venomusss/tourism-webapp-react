@@ -549,7 +549,7 @@ body {
   height: auto;
 }
 
-.item-text{
+.item-text {
   padding: 15px;
   box-sizing: border-box;
   display: flex;
@@ -558,12 +558,12 @@ body {
   min-height: 120px;
 }
 
-.last{
+.last {
   border-radius: 0 0 5px 5px;
   margin: 15px 0 0 0;
 }
 
-.post-item_title{
+.post-item_title {
   font-style: italic;
   font-weight: 500;
   font-size: 30px;
@@ -574,7 +574,7 @@ body {
   width: 70%;
 }
 
-.sorting-panel{
+.sorting-panel {
   border-bottom: 1px solid #23272F;
   padding: 5px 0 10px 0;
   margin-bottom: 40px;
@@ -583,7 +583,7 @@ body {
   flex-direction: row;
 }
 
-.sort-item{
+.sort-item {
   margin: 0 10px;
   font-weight: 500;
   font-size: 21px;
@@ -594,15 +594,15 @@ body {
   letter-spacing: 0.05em;
   color: #000000;
   text-decoration: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.post-item{
+.post-item {
   margin-bottom: 40px;
   cursor: pointer;
 }
 
-.post-item:last-child{
+.post-item:last-child {
   margin-bottom: 0;
 }
 
@@ -610,14 +610,16 @@ body {
 .gray {
   color: gray;
 }
+
 .yellow {
   color: yellow;
 }
+
 .ri-star-fill {
   font-size: 30px;
 }
 
-.admin-panel{
+.admin-panel {
   border-bottom: 1px solid #23272F;
   padding: 5px 0 10px 0;
   margin-bottom: 40px;
@@ -626,7 +628,7 @@ body {
   flex-direction: row;
 }
 
-.admin-panel-item{
+.admin-panel-item {
   margin: 0 0 0 30px;
   font-weight: 500;
   font-size: 21px;
@@ -637,16 +639,16 @@ body {
   letter-spacing: 0.05em;
   color: #000000;
   text-decoration: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.add-form-container{
+.add-form-container {
   display: flex;
   justify-content: center;
   padding-bottom: 100px;
 }
 
-.add-form{
+.add-form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -654,7 +656,8 @@ body {
   min-height: 75vh;
   width: 60%;
 }
-.add-form-inputs{
+
+.add-form-inputs {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -662,7 +665,7 @@ body {
   height: 350px;
 }
 
-.form-left{
+.form-left {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -670,17 +673,17 @@ body {
   box-sizing: border-box;
 }
 
-.location-name-input{
+.location-name-input {
   width: 100%;
 }
 
-.add-form-label{
+.add-form-label {
   display: flex;
   flex-direction: column;
   @extend %label;
 }
 
-.add-form-textarea{
+.add-form-textarea {
   min-width: 100%;
   max-width: 100%;
   min-height: 85%;
@@ -689,16 +692,17 @@ body {
   resize: none;
 }
 
-.form-left{
-  .first{
+.form-left {
+  .first {
     height: 20%;
   }
-  .last{
+
+  .last {
     height: 80%;
   }
 }
 
-.form-right{
+.form-right {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -706,17 +710,18 @@ body {
   box-sizing: border-box;
 }
 
-.form-right{
-  .add-form-label{
+.form-right {
+  .add-form-label {
     height: 30px;
   }
 
-  .add-map{
+  .add-map {
     width: 100%;
     height: 85%;
-    cursor:pointer;
+    cursor: pointer;
   }
-  .add-form-files-field{
+
+  .add-form-files-field {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -724,19 +729,20 @@ body {
   }
 
 }
-.submit-container{
+
+.submit-container {
   padding: 0 20px;
   box-sizing: border-box;
   display: flex;
   width: 100%;
 }
 
-.add-form-submit{
+.add-form-submit {
   width: 100%;
 }
 
 
-.add-files-button{
+.add-files-button {
   @extend %center;
   height: 30px;
   width: 30px;
@@ -750,15 +756,16 @@ body {
   background: $green;
   color: #FFFFFF;
   border-radius: 25px;
-  cursor:pointer;
+  cursor: pointer;
   transition: .2s linear;
   margin: 10px;
-  &:hover{
+
+  &:hover {
     background: $hovergreen;
   }
 }
 
-.add-file-buton-none{
+.add-file-buton-none {
   display: none;
 }
 
@@ -770,29 +777,29 @@ body {
   font-size: 40px;
 }
 
-.slide{
+.slide {
   max-height: 80vh;
   @extend %center
 }
 
-.slider-image{
+.slider-image {
   width: 100%;
   height: auto;
 }
 
-.slider-container{
+.slider-container {
   padding: 25px;
   box-sizing: border-box;
 }
 
-.comment-list{
+.comment-list {
   display: flex;
   flex-direction: column;
   min-height: 120px;
   padding: 0 50px;
 }
 
-.comment-item{
+.comment-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -801,14 +808,15 @@ body {
   min-height: 100px;
 }
 
-.comment-content{
+.comment-content {
   display: flex;
   flex-direction: column;
   width: 75%;
-  padding-left:30px;
+  padding-left: 30px;
   height: 100%;
 }
-.comment-date{
+
+.comment-date {
   width: 20%;
   text-align: end;
   font-weight: 400;
@@ -816,17 +824,49 @@ body {
   line-height: 20px;
 }
 
-.user-title{
+.user-title {
   font-size: 18px;
   font-weight: 500;
   padding-bottom: 10px;
 }
 
-.comment-text{
+.comment-text {
   font-size: 16px;
 }
 
-.comment-error{
+.comment-error {
   text-align: center;
   margin: -30px 0 30px 0;
+}
+
+.Modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(#000, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  text-decoration: none;
+  z-index: 1000;
+
+  .modal__content {
+    padding: 25px;
+    background-color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.Modal.active {
+  opacity: 1;
+  pointer-events: all;
 }

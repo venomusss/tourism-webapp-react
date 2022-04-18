@@ -8,16 +8,15 @@ import {ILocation} from "../../types";
 import Slider from "../../components/Slider";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CommentsList from "../../components/CommentsList";
+import AddProposesModal from "../../components/AddProposesModal";
 
 const PostDetailPage: React.FC = () => {
-    const {id} = useParams()
+    const {id} = useParams();
     const [post, setPost] = useState<ILocation>()
+    const [modalActive, setModalActive] = useState(false);
 
     useEffect(() => {
-        if (!id) {
-            return
-        }
-
+        if (!id) return
         const getPost = async (id: string) => {
             const doc = await getPostById(id)
             if (!doc.exists()) {
@@ -27,14 +26,13 @@ const PostDetailPage: React.FC = () => {
             const loc = {name, coordinates, images, description, date, rating, cachedRating, id: doc.id, comments}
             setPost(loc)
         }
-
-        getPost(id)
-
+        getPost(id).then()
     }, [])
 
     if (!post) {
         return <></>
     }
+
     return (
         <div className='page-container'>
             <div className='back'>
@@ -67,8 +65,7 @@ const PostDetailPage: React.FC = () => {
                         </div>
                     </div>
                     {post.images.length > 1 ?
-                        <div className="white-container slider-container"><Slider images={post.images}/></div> :
-                        <></>
+                        <div className="white-container slider-container"><Slider images={post.images}/></div> : null
                     }
                     <div className="white-container add">
                         <div className="add-text">Add this place to favourites</div>
@@ -82,7 +79,11 @@ const PostDetailPage: React.FC = () => {
                     </div>
                     <div className="white-container add">
                         <div className="add-text">If you have any pictures from this place you can propose them</div>
-                        <button className="add-button">+</button>
+                        <button
+                            className="add-button"
+                            onClick={() => setModalActive(!modalActive)}
+                        >+
+                        </button>
                     </div>
                     <div className="white-container comments">
                         <CommentForm locationId={id}/>
@@ -90,6 +91,7 @@ const PostDetailPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <AddProposesModal active={modalActive} setActive={setModalActive}/>
         </div>
 
     )

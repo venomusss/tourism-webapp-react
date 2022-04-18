@@ -258,7 +258,7 @@ body {
   height: 6.75vh;
   width: 6.75vh;
   border-radius: 50px;
-  background: #382b54;
+  background: #be217b;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;
@@ -759,6 +759,37 @@ body {
 .comment-error {
   text-align: center;
   margin: -30px 0 30px 0;
+}
+
+.Modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  text-decoration: none;
+  z-index: 1000;
+}
+.Modal .modal__content {
+  padding: 25px;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Modal.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 /*# sourceMappingURL=style.css.map */
