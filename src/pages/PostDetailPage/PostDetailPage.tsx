@@ -1,23 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {MouseEventHandler, useContext, useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 import Map from "../../components/Map";
 import CommentForm from "../../components/CommentForm";
 import {useParams} from "react-router-dom";
-import {getPostById} from "../../firebase/firebase";
-import {ILocation} from "../../types";
+import {addToFavorites, getFavorites, getPostById, getUserById} from "../../firebase/firebase";
+import {ILocation, IUser} from "../../types";
 import Slider from "../../components/Slider";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CommentsList from "../../components/CommentsList";
+import {AuthContext} from "../../firebase/AuthContext";
 
 const PostDetailPage: React.FC = () => {
-    const {id} = useParams()
-    const [post, setPost] = useState<ILocation>()
-
+    const {id} = useParams();
+    const [post, setPost] = useState<ILocation>();
+    const user = useContext(AuthContext);
+    const [dbUser, setDbUser] = useState<IUser | undefined>(undefined);
+    const [favLocs, setFavLocs] = useState<ILocation[] | undefined>(undefined);
+    const [isFav, setIsFav] = useState<ILocation | undefined>(undefined);
+    const favoritesHandler = () => {
+        if (post === undefined || dbUser === undefined) return
+        addToFavorites(dbUser?.uid, post).then();
+    }
     useEffect(() => {
         if (!id) {
             return
         }
-
         const getPost = async (id: string) => {
             const doc = await getPostById(id)
             if (!doc.exists()) {
@@ -27,10 +34,15 @@ const PostDetailPage: React.FC = () => {
             const loc = {name, coordinates, images, description, date, rating, cachedRating, id: doc.id, comments}
             setPost(loc)
         }
-
-        getPost(id)
-
-    }, [])
+        getPost(id).then();
+        getUserById(user?.uid).then((user) => {
+            setDbUser(user)
+        })
+        getFavorites(user?.uid).then((locations) => {
+            setFavLocs(locations);
+        })
+        setIsFav(favLocs?.find(loc => loc.id===post?.id))
+    }, [user?.uid, favLocs?.length])
 
     if (!post) {
         return <></>
@@ -70,10 +82,13 @@ const PostDetailPage: React.FC = () => {
                         <div className="white-container slider-container"><Slider images={post.images}/></div> :
                         <></>
                     }
-                    <div className="white-container add">
-                        <div className="add-text">Add this place to favourites</div>
-                        <button className="add-button">+</button>
-                    </div>
+                    {isFav?
+                        <div>da</div>:
+                        <div className="white-container add">
+                            <div className="add-text">Add this place to favourites</div>
+                            <button className="add-button" onClick={favoritesHandler}>+</button>
+                        </div>
+                    }
                     <div className="white-container map-container">
                         <Map position={{
                             lat: post.coordinates.lat,

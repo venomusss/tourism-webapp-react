@@ -16,11 +16,14 @@ import {
     doc,
     updateDoc,
     getDoc,
-    arrayUnion
+    arrayUnion,
+    setDoc,
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
 import {Timestamp} from "firebase/firestore"
+import {log} from "util";
+import {useState} from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -189,7 +192,6 @@ export const updatePostRating = async (post: ILocation, rating: IRating) => {
 
 export const changePostRating = async (post: ILocation, rating: IRating) => {
     const postRef = doc(db, "locations", post.id || "")
-
     let prevUserRating = post.rating.find(rate => rate.userId === rating.userId)?.value || 0
     let newRating = post.rating.filter(rate => rate.userId !== rating.userId).concat(rating)
     let newCachedValue = (post.cachedRating * post.rating.length - prevUserRating + rating.value) / post.rating.length
@@ -204,3 +206,24 @@ export const changePostRating = async (post: ILocation, rating: IRating) => {
         console.log((e as Error).message)
     }
 }
+
+export const addToFavorites = async (uid: string, location: ILocation) => {
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const docs = await getDocs(q);
+    const userRef = doc(usersCollection, docs.docs[0].id);
+    try {
+        await updateDoc(userRef, {
+            selectedLocations: arrayUnion(location)
+        })
+    } catch (e) {
+        console.log((e as Error).message)
+    }
+}
+
+export const getFavorites = async (uid: string|undefined) => {
+    let favLocs: ILocation[] | undefined = [];
+    await getUserById(uid).then(r =>favLocs = r?.selectedLocations)
+    return favLocs;
+}
+
+getFavorites('S8SG65qusXPg1V7nKAYW4UZoo3B2')
