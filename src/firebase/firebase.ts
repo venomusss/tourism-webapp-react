@@ -19,7 +19,7 @@ import {
     arrayUnion
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
+import {ICoordinates, ILocation, IUser, IRating, IComment, IPropose} from "../types";
 import {Timestamp} from "firebase/firestore"
 
 const firebaseConfig = {
@@ -41,6 +41,7 @@ export const storage = getStorage(app);
 //DB functions
 const usersCollection = collection(db, 'users');
 const locationCollection = collection(db, 'locations');
+const proposesCollection = collection(db, 'proposes');
 
 export const addComment = async (postId: string, authorId: string, commentContent: string) => {
     const comment: IComment = {
@@ -64,6 +65,16 @@ export const uploadFile = async (file: File): Promise<string> => {
             reject
         )
     })
+}
+
+export const addPropose = async (userId: string, urls: string[], locationId: string) => {
+    const newPropose: IPropose = {
+        authorId: userId,
+        images: urls,
+        locationId: locationId,
+        date: serverTimestamp(),
+    }
+    await addDoc(proposesCollection, newPropose);
 }
 
 export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates) => {
