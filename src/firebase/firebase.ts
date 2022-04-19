@@ -17,13 +17,10 @@ import {
     updateDoc,
     getDoc,
     arrayUnion,
-    setDoc,
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {ICoordinates, ILocation, IUser, IRating, IComment} from "../types";
 import {Timestamp} from "firebase/firestore"
-import {log} from "util";
-import {useState} from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -220,10 +217,28 @@ export const addToFavorites = async (uid: string, location: ILocation) => {
     }
 }
 
-export const getFavorites = async (uid: string|undefined) => {
+export const getFavorites = async (uid: string | undefined) => {
     let favLocs: ILocation[] | undefined = [];
-    await getUserById(uid).then(r =>favLocs = r?.selectedLocations)
+    await getUserById(uid).then(r => favLocs = r?.selectedLocations)
     return favLocs;
 }
 
-getFavorites('S8SG65qusXPg1V7nKAYW4UZoo3B2')
+export const deleteFromFavorites = async (uid: string | undefined, location: ILocation) => {
+    let favoritesArr: ILocation[] = [];
+    await getFavorites(uid).then(r => favoritesArr = r);
+    let filteredArr: ILocation[] = favoritesArr.filter(item => item.id !== location.id);
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const docs = await getDocs(q);
+    const userRef = doc(usersCollection, docs.docs[0].id);
+    try {
+        await updateDoc(userRef, {
+            selectedLocations:filteredArr
+        })
+    } catch (e) {
+        console.log((e as Error).message)
+    }
+}
+
+
+
+

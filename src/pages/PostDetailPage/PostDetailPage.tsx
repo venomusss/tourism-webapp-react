@@ -1,9 +1,9 @@
-import React, {MouseEventHandler, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 import Map from "../../components/Map";
 import CommentForm from "../../components/CommentForm";
 import {useParams} from "react-router-dom";
-import {addToFavorites, getFavorites, getPostById, getUserById} from "../../firebase/firebase";
+import {addToFavorites, deleteFromFavorites, getFavorites, getPostById, getUserById} from "../../firebase/firebase";
 import {ILocation, IUser} from "../../types";
 import Slider from "../../components/Slider";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -20,6 +20,12 @@ const PostDetailPage: React.FC = () => {
     const favoritesHandler = () => {
         if (post === undefined || dbUser === undefined) return
         addToFavorites(dbUser?.uid, post).then();
+        setIsFav(post);
+    }
+    const deleteHandler = () => {
+        if (post === undefined || dbUser === undefined) return
+        deleteFromFavorites(dbUser?.uid, post).then();
+        setIsFav(undefined)
     }
     useEffect(() => {
         if (!id) {
@@ -41,7 +47,7 @@ const PostDetailPage: React.FC = () => {
         getFavorites(user?.uid).then((locations) => {
             setFavLocs(locations);
         })
-        setIsFav(favLocs?.find(loc => loc.id===post?.id))
+        setIsFav(favLocs?.find(loc => loc.id === post?.id))
     }, [user?.uid, favLocs?.length])
 
     if (!post) {
@@ -82,8 +88,12 @@ const PostDetailPage: React.FC = () => {
                         <div className="white-container slider-container"><Slider images={post.images}/></div> :
                         <></>
                     }
-                    {isFav?
-                        <div>da</div>:
+                    {isFav ?
+                        <div className="white-container add">
+                            <div className="add-text">This place is already on the favorites list</div>
+                            <button className="add-button delete-button" onClick={deleteHandler}>+</button>
+                        </div>
+                        :
                         <div className="white-container add">
                             <div className="add-text">Add this place to favourites</div>
                             <button className="add-button" onClick={favoritesHandler}>+</button>

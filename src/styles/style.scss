@@ -365,7 +365,7 @@ body {
   letter-spacing: 0.05em;
   color: #FFFFFF;
   cursor: pointer;
-  transition: .2s linear;
+  transition: .05s linear;
 
   &:hover {
     background: $hovergreen;
@@ -741,6 +741,14 @@ body {
 .comment-error {
   text-align: center;
   margin: -30px 0 30px 0;
+}
+
+.delete-button{
+  background: #f73535;
+  transform: rotate(45deg);
+  &:hover{
+    background: #ab1818;
+  }
 }
 
 @media (max-width: 740px) {
