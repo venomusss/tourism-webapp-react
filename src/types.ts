@@ -1,5 +1,6 @@
 import firebase from "firebase/compat";
 import FieldValue = firebase.firestore.FieldValue;
+import {Timestamp} from "firebase/firestore";
 
 export interface IUser {
     uid: string,
@@ -16,29 +17,31 @@ export interface ILocation {
     images: string[],
     description: string,
     date: FieldValue,
-    comments: IComment[]
+    comments: IComment[],
     rating: IRating[],
-    cachedRating: number
+    cachedRating: number,
 }
 
 export interface IComment {
-    author: IUser,
+    authorId: string,
     text: string,
-    date: Date,
+    date: Timestamp,
 }
 
-export interface ISuggestion {
+export interface IPropose {
+    id?: string,
     author: IUser,
-    image: File,
+    images: string[],
     location: ILocation,
+    date: FieldValue,
 }
 
 export interface ICoordinates {
     lat: number,
-    lng: number
+    lng: number,
 }
 
 export interface IRating {
     userId: string,
-    value: number
+    value: number,
 }
