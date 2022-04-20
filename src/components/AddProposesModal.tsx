@@ -39,6 +39,7 @@ const AddProposesModal: FC<AddToFavoritesModalProps> = ({active, setActive, post
             if (!dbUser || !id) return
             await addPropose(dbUser, urls, post)
             resetForm()
+            setUrls([])
             setActive(false)
         },
     })
@@ -63,7 +64,7 @@ const AddProposesModal: FC<AddToFavoritesModalProps> = ({active, setActive, post
                        name={"files"}
                 />
                 {formik.errors.files ? <div>{formik.errors.files}</div> : null}
-                <button type={"submit"}>Propose your photos</button>
+                <button type={"submit"} disabled={urls.length === 0}>Propose your photos</button>
             </form>
         </Modal>
     );

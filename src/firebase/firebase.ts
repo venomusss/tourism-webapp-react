@@ -46,8 +46,7 @@ const locationCollection = collection(db, 'locations');
 export const proposesCollection = collection(db, 'proposes');
 
 export const getProposes = async () => {
-    const proposesSnapshot = await getDocs(proposesCollection)
-    return proposesSnapshot.docs
+    return await getDocs(proposesCollection)
 }
 
 export const addImageToLocation = async (locationId: string, imageUrls: string[], proposeId: string) => {
