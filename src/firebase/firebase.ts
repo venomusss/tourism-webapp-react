@@ -17,7 +17,8 @@ import {
     updateDoc,
     getDoc,
     arrayUnion,
-    deleteDoc,
+    deleteDoc
+
 } from "firebase/firestore"
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {ICoordinates, ILocation, IUser, IRating, IComment, IPropose} from "../types";
@@ -218,7 +219,6 @@ export const updatePostRating = async (post: ILocation, rating: IRating) => {
 
 export const changePostRating = async (post: ILocation, rating: IRating) => {
     const postRef = doc(db, "locations", post.id || "")
-
     let prevUserRating = post.rating.find(rate => rate.userId === rating.userId)?.value || 0
     let newRating = post.rating.filter(rate => rate.userId !== rating.userId).concat(rating)
     let newCachedValue = (post.cachedRating * post.rating.length - prevUserRating + rating.value) / post.rating.length
@@ -233,3 +233,42 @@ export const changePostRating = async (post: ILocation, rating: IRating) => {
         console.log((e as Error).message)
     }
 }
+
+export const addToFavorites = async (uid: string, location: ILocation) => {
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const docs = await getDocs(q);
+    const userRef = doc(usersCollection, docs.docs[0].id);
+    try {
+        await updateDoc(userRef, {
+            selectedLocations: arrayUnion(location)
+        })
+    } catch (e) {
+        console.log((e as Error).message)
+    }
+}
+
+export const getFavorites = async (uid: string | undefined) => {
+    let favLocs: ILocation[] | undefined = [];
+    await getUserById(uid).then(r => favLocs = r?.selectedLocations)
+    return favLocs;
+}
+
+export const deleteFromFavorites = async (uid: string | undefined, location: ILocation) => {
+    let favoritesArr: ILocation[] = [];
+    await getFavorites(uid).then(r => favoritesArr = r);
+    let filteredArr: ILocation[] = favoritesArr.filter(item => item.id !== location.id);
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const docs = await getDocs(q);
+    const userRef = doc(usersCollection, docs.docs[0].id);
+    try {
+        await updateDoc(userRef, {
+            selectedLocations:filteredArr
+        })
+    } catch (e) {
+        console.log((e as Error).message)
+    }
+}
+
+
+
+
