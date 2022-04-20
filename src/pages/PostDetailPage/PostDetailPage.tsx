@@ -91,7 +91,7 @@ const PostDetailPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <AddProposesModal active={modalActive} setActive={setModalActive}/>
+            <AddProposesModal active={modalActive} setActive={setModalActive} post={post}/>
         </div>
 
     )
