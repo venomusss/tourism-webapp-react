@@ -173,7 +173,7 @@ body {
   height: 6.75vh;
   width: 6.75vh;
   border-radius: 50px;
-  background: #be217b;
+  background: #4babaf;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;
@@ -447,6 +447,10 @@ body {
   color: #000000;
   text-decoration: none;
   cursor: pointer;
+}
+.sort-item span {
+  font-size: 30px;
+  width: 20px;
 }
 
 .post-item {
@@ -940,7 +944,7 @@ body {
   height: 50px;
   width: 50px;
   border-radius: 50px;
-  background: #be217b;
+  background: #4babaf;
   color: #F8F2F4;
   font-weight: 700;
   text-decoration: none;

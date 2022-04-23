@@ -501,6 +501,13 @@ body {
   color: #000000;
   text-decoration: none;
   cursor: pointer;
+  span{
+    font-size: 30px;
+    width: 40px;
+  }
+  .double-arrow{
+    font-size: 25px;
+  }
 }
 
 .post-item {
