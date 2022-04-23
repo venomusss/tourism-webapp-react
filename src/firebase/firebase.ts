@@ -1,28 +1,35 @@
 import {initializeApp} from "firebase/app";
 import {
-    getAuth,
-    signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    signOut,
+    getAuth,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut
 } from "firebase/auth"
 import {
-    getFirestore,
-    collection,
     addDoc,
-    query, where, getDocs,
-    serverTimestamp,
-    doc,
-    updateDoc,
-    getDoc,
     arrayUnion,
-    deleteDoc
-
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    getFirestore,
+    query,
+    serverTimestamp,
+    Timestamp,
+    updateDoc,
+    where,
 } from "firebase/firestore"
-import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-import {ICoordinates, ILocation, IUser, IRating, IComment, IPropose} from "../types";
-import {Timestamp} from "firebase/firestore"
+import {
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
+    deleteObject,
+} from "firebase/storage";
+import {IComment, ICoordinates, ILocation, IPropose, IRating, IUser} from "../types";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkBRxravwg9cWcehtZd37Rs7K80kALxFA",
@@ -46,8 +53,12 @@ const locationCollection = collection(db, 'locations');
 export const proposesCollection = collection(db, 'proposes');
 
 export const getProposes = async () => {
-    const proposesSnapshot = await getDocs(proposesCollection)
-    return proposesSnapshot.docs
+    return await getDocs(proposesCollection)
+}
+
+export const deleteFileFromStorage = async (url: string) => {
+    const fileRef = await ref(storage, url)
+    await deleteObject(fileRef)
 }
 
 export const addImageToLocation = async (locationId: string, imageUrls: string[], proposeId: string) => {
@@ -57,9 +68,10 @@ export const addImageToLocation = async (locationId: string, imageUrls: string[]
     await deleteDoc(proposeRef).then(() => console.log("Delete propose"))
 }
 
-export const deletePropose = async (proposeId: string) => {
+export const deletePropose = async (proposeId: string, urls: string[]) => {
     const proposeRef = doc(db, "proposes", proposeId)
     await deleteDoc(proposeRef).then(() => console.log("Decline propose"))
+    urls.forEach(url => deleteFileFromStorage(url))
 }
 
 export const addComment = async (postId: string, authorId: string, commentContent: string) => {
@@ -96,8 +108,9 @@ export const addPropose = async (user: IUser, urls: string[], location: ILocatio
     await addDoc(proposesCollection, newPropose);
 }
 
-export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates) => {
+export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates, type: string) => {
     const newLocation: ILocation = {
+        type: type,
         name: name,
         images: urls,
         coordinates: coordinates,
@@ -192,10 +205,8 @@ export const getAllPosts = () => {
 }
 
 export const getPostById = async (id: string) => {
-    // return query(locationCollection)
     const docRef = doc(db, "locations", id);
-    const docSnap = await getDoc(docRef);
-    return docSnap
+    return await getDoc(docRef)
 }
 
 export const updatePostRating = async (post: ILocation, rating: IRating) => {
@@ -262,7 +273,7 @@ export const deleteFromFavorites = async (uid: string | undefined, location: ILo
     const userRef = doc(usersCollection, docs.docs[0].id);
     try {
         await updateDoc(userRef, {
-            selectedLocations:filteredArr
+            selectedLocations: filteredArr
         })
     } catch (e) {
         console.log((e as Error).message)
@@ -270,5 +281,16 @@ export const deleteFromFavorites = async (uid: string | undefined, location: ILo
 }
 
 
+export const ascendingSort = (allLocs:ILocation[]) => {
+    return allLocs.sort((a, b) => a.rating.length < b.rating.length ? 1 : -1);
+}
+
+export const descendingSort = (allLocs:ILocation[]) => {
+    return allLocs.sort((a, b) => a.rating.length > b.rating.length ? 1 : -1);
+}
+
+export const dateSort = (allLocs:ILocation[]) => {
+    return allLocs.sort((a, b) => a.date < b.date ? 1 : -1);
+}
 
 

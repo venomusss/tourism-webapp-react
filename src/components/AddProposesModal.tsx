@@ -39,16 +39,16 @@ const AddProposesModal: FC<AddToFavoritesModalProps> = ({active, setActive, post
             if (!dbUser || !id) return
             await addPropose(dbUser, urls, post)
             resetForm()
+            setUrls([])
             setActive(false)
         },
     })
 
     const handleChangeFiles = async (files: FileList) => {
         await Promise.all(Array.from(files).map(uploadFile))
-            .then(urls => setUrls(urls))
-        console.log(`create urls ${urls}`)
-    }
+            .then(urls => setUrls(urls)).catch(err => console.log(err))
 
+    }
     return (
         <Modal active={active} setActive={setActive}>
             <form onSubmit={formik.handleSubmit}>
@@ -63,7 +63,7 @@ const AddProposesModal: FC<AddToFavoritesModalProps> = ({active, setActive, post
                        name={"files"}
                 />
                 {formik.errors.files ? <div>{formik.errors.files}</div> : null}
-                <button type={"submit"}>Propose your photos</button>
+                <button type={"submit"} disabled={urls.length === 0}>Propose your photos</button>
             </form>
         </Modal>
     );
