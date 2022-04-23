@@ -39,8 +39,10 @@ const PostDetailPage: React.FC = () => {
             if (!doc.exists()) {
                 return
             }
-            const {name, coordinates, images, description, date, rating, cachedRating, comments} = doc.data()
-            const loc = {name, coordinates, images, description, date, rating, cachedRating, id: doc.id, comments}
+            const {name, coordinates, images, description, date, rating, cachedRating, comments, type} = doc.data()
+            const loc = {
+                name, type, coordinates, images, description, date, rating, cachedRating, id: doc.id, comments
+            }
             setPost(loc)
         }
         getPost(id).then();
@@ -60,7 +62,7 @@ const PostDetailPage: React.FC = () => {
     return (
         <div className='page-container'>
             <div className='back'>
-                <div className='back-link' onClick={()=> navigation(-1)}>
+                <div className='back-link' onClick={() => navigation(-1)}>
                     <svg className='arrow' xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 30 24"
                          fill="none">
                         <path
@@ -84,8 +86,8 @@ const PostDetailPage: React.FC = () => {
                                 </div>
                                 <div className="rating">Rating</div>
                             </div>
-                            <div className="text-description">{post.description}
-                            </div>
+                            <div className="text-description">{post.description}</div>
+                            <div>{post.type}</div>
                         </div>
                     </div>
                     {post.images.length > 1 ?

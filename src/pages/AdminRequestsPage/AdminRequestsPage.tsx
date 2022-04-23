@@ -38,6 +38,7 @@ const AdminRequestsPage: React.FC = () => {
                         id: location.id,
                         comments: location.comments,
                         description: location.description,
+                        type: location.type,
                     },
                 })
             })
