@@ -45,9 +45,6 @@ const AdminRequestsPage: React.FC = () => {
         })
     }, [])
 
-    console.log(proposes)
-
-
     return (
         <div className='page-container'>
             <AdminNavigationPanel/>
