@@ -503,7 +503,10 @@ body {
   cursor: pointer;
   span{
     font-size: 30px;
-    width: 20px;
+    width: 100%;
+  }
+  .double-arrow{
+    font-size: 25px;
   }
 }
 
@@ -1094,7 +1097,6 @@ body {
   letter-spacing: 0.05em;
   color: $navlink;
 }
-
 
 @media (max-width: 740px) {
   .header-burger {

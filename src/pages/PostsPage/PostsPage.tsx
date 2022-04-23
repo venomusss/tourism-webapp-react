@@ -46,7 +46,7 @@ const PostsPage: React.FC = () => {
                 <div className='sorting-panel'>
                     <div onClick={popularSort} className="sort-item">
                         Popular
-                        {popSortState==='default' ? <span/> : popSortState==='ascending' ? <span>↓</span> : <span>↑</span>}
+                        {popSortState==='default' ? <span className='double-arrow'>↔</span> : popSortState==='ascending' ? <span>↓</span> : <span>↑</span>}
                     </div>
                     <div className="sort-item">Country</div>
                 </div>
