@@ -108,8 +108,9 @@ export const addPropose = async (user: IUser, urls: string[], location: ILocatio
     await addDoc(proposesCollection, newPropose);
 }
 
-export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates) => {
+export const addLocation = async (name: string, description: string, urls: string[], coordinates: ICoordinates, type: string) => {
     const newLocation: ILocation = {
+        type: type,
         name: name,
         images: urls,
         coordinates: coordinates,
