@@ -13,7 +13,7 @@ const Propose: FC<IProposeProps> = ({propose, filterProposes}) => {
     const navigate = useNavigate();
     const onConfirm = () => {
         if (!propose.location.id || !propose.images || !propose.id) return
-        addImageToLocation(propose.location.id, propose.images, propose.id, propose.images).then(() => console.log("confirmed"))
+        addImageToLocation(propose.location.id, propose.images, propose.id).then(() => console.log("confirmed"))
         filterProposes(propose.id)
     }
     const onDecline = () => {
